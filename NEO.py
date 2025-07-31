@@ -1,6 +1,10 @@
 import subprocess
 import threading
-import datetime import datetime
+from datetime import datetime
 import time
 import webbrowser
+
+# CONFIGURACION
+assistant_name = "NEO"
+user_name = ""
 
