@@ -8,17 +8,17 @@ import webbrowser
 assistant_name = "NEO"
 user_name = ""
 
-def NomUs():
+def getUserName():
     global user_name
     while True:
-        user_name = input("por favor ingrese el nombre de usuario con el cual me voy a dirigir a usted: ").strip()
+        user_name = input("Please enter the username I will use to address you: ").strip()
         if user_name:
-            print(f"Perfecto, gusto en conocerte {user_name}")
+            print(f"Perfect, nice to meet you {user_name}")
             break
         else:
-            print("Por favor, ingrese un nombre válido (no puede estar vacío).")
+            print("Please enter a valid name (cannot be empty).")
 
-NomUs()
+getUserName()
 
 # Lista de apps que puede abrir (ajústalas a tus rutas)
 apps = {
@@ -32,7 +32,7 @@ apps = {
     "discord": "discord"
 }
 
-def saludar_segun_hora():
+def greet_by_time():
     hora = datetime.now().hour
 
     if 5 <= hora < 11:
@@ -48,23 +48,23 @@ def saludar_segun_hora():
     else:
         print(
             f"\n[{assistant_name} 🔴] Ya es bastante tarde {user_name}. Recuerda que dormir bien es importante.")
-saludar_segun_hora()
+greet_by_time()
 
 
-def abrir_app(nombre_app):
-    if nombre_app in apps:
+def open_app(app_name):
+    if app_name in apps:
         try:
             subprocess.Popen(
-                [apps[nombre_app]], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            print(f"[{assistant_name}] Abriendo {nombre_app}...")
+                [apps[app_name]], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            print(f"[{assistant_name}] Abriendo {app_name}...")
         except FileNotFoundError:
             print(
-                f"[{assistant_name}] No encontre la aplicacion ' {nombre_app}'. Asegurate de tenerla instalada")
+                f"[{assistant_name}] No encontre la aplicacion ' {app_name}'. Asegurate de tenerla instalada")
     else:
         print(f"[{assistant_name}] No tengo registrada esa aplicación.")
 
 
-def busquedas_web():
+def web_search():
     comando = input(" Que quieres que busque? ").lower()
     if comando.startswith("busca"):
         busqueda = comando.replace("busca", "").strip()
@@ -77,7 +77,7 @@ def busquedas_web():
             print(f"[{assistant_name}] No has especificado qué buscar.")
 
 
-def alerta_nocturna():
+def night_alert():
     ya_avisado = False
     while True:
         hora_actual = datetime.now().hour
@@ -94,11 +94,11 @@ def alerta_nocturna():
             time.sleep(60)
 
 
-hilo_noche = threading.Thread(target=alerta_nocturna)
-hilo_noche.start()
+night_thread = threading.Thread(target=night_alert)
+night_thread.start()
 
 
-def alerta_descanso():
+def rest_alert():
     tiempo_inicio = time.time()
     intervalo_entre_alertas = 3600
 
@@ -111,27 +111,27 @@ def alerta_descanso():
             tiempo_inicio = time.time()
 
 
-hilo_descanso = threading.Thread(target=alerta_descanso)
-hilo_descanso.start()
+rest_thread = threading.Thread(target=rest_alert)
+rest_thread.start()
 
 
-def mostrar_menu():
+def show_menu():
     print("\n--- MENÚ DE COMANDOS DE NEO---")
     print("1. Abrir aplicación")
     print("2. Hacer busqueda en tu navegador")
     print("0. Salir")
 
 
-# Bucle principal
+# Main loop
 while True:
-    mostrar_menu()
+    show_menu()
     opcion = input(f"\n[{assistant_name}] ¿Qué deseas hacer?: ")
     if opcion == "1":
         app = input(
             f"[{assistant_name}] ¿Qué aplicación quieres abrir?: ").lower()
-        abrir_app(app)
+        open_app(app)
     elif opcion == "2":
-        busquedas_web()
+        web_search()
     elif opcion == "0":
         print(f"[{assistant_name}] Hasta pronto, cuídate.")
         break
