@@ -19,3 +19,15 @@ def NomUs():
             print("Por favor, ingrese un nombre válido (no puede estar vacío).")
 
 NomUs()
+
+# Lista de apps que puede abrir (ajústalas a tus rutas)
+apps = {
+    # Aqui lo que hice fue dejar algo preestablecido pero necesitas cambiar el nombre del usario al de tu sistema en si.
+    "chrome": "google-chrome",
+    "libreoffice": "libreoffice",
+    "brave": "brave",
+    "visualstudio": "code",
+    "visual": "code",
+    "visualstudiocode": "code",
+    "discord": "discord"
+}
